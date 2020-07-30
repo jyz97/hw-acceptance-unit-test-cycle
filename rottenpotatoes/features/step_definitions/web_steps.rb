@@ -78,7 +78,9 @@ end
 #
 When /^(?:|I )fill in the following:$/ do |fields|
   fields.rows_hash.each do |name, value|
-    When %{I fill in "#{name}" with "#{value}"}
+     When %{I fill in "#{name}" with "#{value}"}
+#       %{When I fill in "#{name}" with "#{value}"}
+
   end
 end
 
@@ -252,3 +254,14 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+Then /^the director of "([^"]*)" should be "([^"]*)"$/ do |title, expect_director|
+  actual_director = Movie.find_by_title(title)[:director]
+  if actual_director.respond_to? :should
+    actual_director.should == expect_director
+  else
+    assert_equal expect_director, actual_director
+  end
+end   
+
+

@@ -1,0 +1,2 @@
+rails generate migration add_director_to_movies director:string
+bundle exec rspec
